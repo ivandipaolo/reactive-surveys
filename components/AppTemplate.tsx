@@ -8,6 +8,8 @@ import {
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import Image from 'next/image'
+import logo from "../public/logo.svg"
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -46,23 +48,26 @@ const ConnectedTemplate: React.FC = () => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout className="min-h-screen">
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+        <div className="flex flex-row text-white items-center justify-center">
+          <p className="font-semibold">Reactive Surveys</p>
+          <Image className="p-2" width="40" height="40" src={logo} alt="logo"/>
+        </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
       </Sider>
       <Layout className="site-layout">
         <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
+        <Content className="mx-4 my-16">
+          <Breadcrumb className="mb-4">
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
+          <div className={`p-4 min-h-[360px] bg-${colorBgContainer}`}>
             Bill is a cat.
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+        <Footer className="text-center">Ant Design ©2023 Created by Ant UED</Footer>
       </Layout>
     </Layout>
   );
