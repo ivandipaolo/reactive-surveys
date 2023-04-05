@@ -1,3 +1,5 @@
+import "@/styles/globals.css"
+
 export const metadata = {
   title: 'Reactive Surveys',
   description: 'Complete your surveys to get tokens!',
