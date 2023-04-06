@@ -1,7 +1,14 @@
 'use client'
 
-import { getLibrary } from "@/components/wallet/connectors"
+import ConnectedTemplate from "@/components/AppTemplate";
+import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core"
+
+export function getLibrary(provider: any): Web3Provider {
+  const library = new Web3Provider(provider);
+  library.pollingInterval = 12000;
+  return library;
+}
 
 export default function RootTemplate({
   children,
@@ -10,7 +17,7 @@ export default function RootTemplate({
 }) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      {children}
+      <ConnectedTemplate children={children}/>
     </Web3ReactProvider>
   )
 }
