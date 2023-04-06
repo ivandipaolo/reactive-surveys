@@ -17,7 +17,7 @@ export default function RootTemplate({
 }) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <ConnectedTemplate children={children}/>
+      <ConnectedTemplate children={children} key="connected-template"/>
     </Web3ReactProvider>
   )
 }
