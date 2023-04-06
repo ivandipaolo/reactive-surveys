@@ -6,8 +6,8 @@ import Image from "next/image";
 import { QuizBalance } from "./QuizBalance";
 import SwitchNetwork from "./SwitchNetwork";
 
-export const ConnectButton: React.FC = () =>  {
-  const { active, account, activate, deactivate, chainId } = useWeb3React();
+export const ConnectMetaMask: React.FC = () =>  {
+  const { active, account, activate, deactivate, chainId, library } = useWeb3React();
 
   async function connect () {
     try {
@@ -36,6 +36,15 @@ export const ConnectButton: React.FC = () =>  {
     }
   }
 
+  function renderNetworkStatus() {
+    if (chainId !== 5 && active) {
+      return <SwitchNetwork />
+    } else if (active) {
+      return <p>Connected to Goerli Testnet with ChainId {chainId}</p>
+    }
+    return null
+  }
+  
   useEffect(() => {
     activate(injected)
     connectWalletOnPageLoad()
@@ -44,18 +53,14 @@ export const ConnectButton: React.FC = () =>  {
   return (
     <div className="flex flex-col items-center justify-center text-white leading-9">
       <div className="flex flex-row text-center items-center justify-center gap-5 text-white">
-        <QuizBalance/>
+        {active && <QuizBalance/>}
         <button onClick={() => { active ? disconnect() : connect()}} className="flex flex-row items-center justify-center py-2 text-lg font-bold text-white rounded-lg w-40 bg-blue-600 hover:bg-blue-800">
           {active ? 'Disconnect' : 'Connect'}
           <Image className="p-2" width="40" height="40" src={MetaMaskLogo} alt="logo"/>
         </button>
       </div>
       {active ? <span>Connected with <b>{account}</b></span> : <span>Not connected</span>}
-      {
-        chainId !== 5
-        ? <SwitchNetwork/>
-        : <></>
-      }
+      {renderNetworkStatus()}
     </div>
   )
 }

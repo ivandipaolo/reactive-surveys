@@ -3,16 +3,18 @@ import { Contract } from "@ethersproject/contracts";
 import QUIZ_ABI from "@/abis/QUIZ.json"
 import { useEffect, useState } from "react";
 
-export const QuizBalance: React.FC = () => {
-  const { active, account, library } = useWeb3React();
-  const [balance, setBalance] = useState<string>('');
+type Balance = string;
 
-  useEffect(() => {
+export const QuizBalance: React.FC = (): JSX.Element => {
+  const { active, account, library } = useWeb3React();
+  const [balance, setBalance] = useState<Balance>('');
+
+  useEffect((): void => {
     if (active && account && library) {
       const quizContract = new Contract('0x437eF217203452317C3C955Cf282b1eE5F6aaF72', QUIZ_ABI, library);
-      quizContract.balanceOf(account).then((balance: any) => {
+      quizContract.balanceOf(account).then((balance: Balance): void => {
         setBalance(balance.toString());
-      }).catch((err: any) => {
+      }).catch((err: Error): void => {
         console.log(err);
       });
     }

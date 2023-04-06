@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import Image from 'next/image'
 import logo from "@/public/logo.svg"
-import { ConnectButton } from '@/components/ConnectButton';
+import { ConnectMetaMask } from '@/components/ConnectMetaMask';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -62,8 +62,8 @@ const ConnectedTemplate = ({children}: TemplateProps) => {
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
       </Sider>
       <Layout className="site-layout">
-        <Header className='h-32 p-4'>
-          <ConnectButton/>
+        <Header className='h-fit p-4'>
+          <ConnectMetaMask/>
         </Header>
         <Content className="mx-4 my-16">
           <div className={`p-4 min-h-[360px] bg-${colorBgContainer}`}>
