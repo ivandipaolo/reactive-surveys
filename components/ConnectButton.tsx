@@ -1,13 +1,13 @@
 import { useWeb3React } from "@web3-react/core"
 import { injected } from "@/components/wallet/connectors";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MetaMaskLogo from "@/public/metamask-fox.svg"
 import Image from "next/image";
 import { QuizBalance } from "./QuizBalance";
+import SwitchNetwork from "./SwitchNetwork";
 
 export const ConnectButton: React.FC = () =>  {
-  const { active, account, library, activate, deactivate } = useWeb3React();
-  const [balance, setBalance] = useState<string>('');
+  const { active, account, activate, deactivate, chainId } = useWeb3React();
 
   async function connect () {
     try {
@@ -51,6 +51,11 @@ export const ConnectButton: React.FC = () =>  {
         </button>
       </div>
       {active ? <span>Connected with <b>{account}</b></span> : <span>Not connected</span>}
+      {
+        chainId !== 5
+        ? <SwitchNetwork/>
+        : <></>
+      }
     </div>
   )
 }

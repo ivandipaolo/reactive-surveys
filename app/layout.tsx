@@ -4,6 +4,11 @@ export const metadata = {
   title: 'Reactive Surveys',
   description: 'Complete your surveys to get tokens!',
 }
+declare global {
+  interface Window {
+    ethereum: any
+  }
+}
 
 export default function RootLayout({
   children,
