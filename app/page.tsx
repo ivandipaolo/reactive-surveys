@@ -1,14 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { ConnectButton } from '@/components/ConnectButton';
+import { useWeb3React } from '@web3-react/core';
 import { useEffect } from 'react';
 
 export default function Page() {
-  const router = useRouter();
-  
+  const { active, account, connector } = useWeb3React();
+
   useEffect(() => {
-    router.push('/connect')
-  }, [])
+    console.log(active, account, connector)
+  }, [active])
   
-  return (<></>);
+  return (
+    <>
+    </>
+  );
 }

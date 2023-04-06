@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
@@ -7,9 +7,10 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import Image from 'next/image'
-import logo from "../public/logo.svg"
+import logo from "@/public/logo.svg"
+import { ConnectButton } from '@/components/ConnectButton';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -41,7 +42,11 @@ const items: MenuItem[] = [
   getItem('Files', '9', <FileOutlined />),
 ];
 
-const ConnectedTemplate: React.FC = () => {
+  type TemplateProps = {
+    children: ReactNode
+  }
+
+const ConnectedTemplate = ({children}: TemplateProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -51,20 +56,18 @@ const ConnectedTemplate: React.FC = () => {
     <Layout className="min-h-screen">
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="flex flex-row text-white items-center justify-center">
-          <p className="font-semibold">Reactive Surveys</p>
+          <p className="font-semibold" hidden={collapsed}>Reactive Surveys</p>
           <Image className="p-2" width="40" height="40" src={logo} alt="logo"/>
         </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
       </Sider>
       <Layout className="site-layout">
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header className='h-32 p-4'>
+          <ConnectButton/>
+        </Header>
         <Content className="mx-4 my-16">
-          <Breadcrumb className="mb-4">
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
           <div className={`p-4 min-h-[360px] bg-${colorBgContainer}`}>
-            Bill is a cat.
+            {children}
           </div>
         </Content>
         <Footer className="text-center">Ant Design ©2023 Created by Ant UED</Footer>
