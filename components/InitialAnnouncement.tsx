@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { Button, Result } from 'antd'
 import ConnectButton from '@/components/ConnectButton'
 import { useWalletConnection } from '@/hooks/useWalletConnection'
@@ -27,6 +27,7 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
       />
     )
   }
+
   return (
     <>
       { cooldownPeriod === 0
@@ -41,11 +42,11 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
           />
         :
           <Result
-            status={active ? "success" : "warning"}
-            title={active ? "You are ready to begin today's survey!" : "Please log-in into your MetaMask account to continue."}
-            subTitle={active ? "Click the button bellow for beggining the survey" : "Click the button bellow to log-in into your MetaMask Account"}
+            status={active ? "info" : "warning"}
+            title={active ? "You have to wait until starting a new survey!" : "Please log-in into your MetaMask account to continue."}
+            subTitle={active ? "The following button will be available to click after you complete your waiting time" : "Click the button bellow to log-in into your MetaMask Account"}
             extra={[
-              <Button key="startSurvey" onClick={() => setStartedQuiz(true)}>Continue Waiting</Button>,
+              <Button key="startSurvey" onClick={() => setStartedQuiz(true)} disabled>Continue Waiting</Button>,
             ]}
           />
         }

@@ -1,6 +1,6 @@
 'use client'
 
-import ConnectedTemplate from "@/components/AppTemplate";
+import AppTemplate from "@/components/AppTemplate";
 import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core"
 
@@ -17,7 +17,7 @@ export default function RootTemplate({
 }) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <ConnectedTemplate children={children} key="connected-template"/>
+      <AppTemplate children={children}/>
     </Web3ReactProvider>
   )
 }

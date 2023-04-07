@@ -43,7 +43,6 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
       const newIndex = currentQuestionIndex + 1
       setCurrentQuestionIndex(newIndex)
       setCurrentQuestion(questions[newIndex])
-      setCurrentQuestionLifetime(currentQuestion.lifetimeSeconds)
       setCurrentAnswer(-1)
     } else {
       setIsSurveyFinished(true)
@@ -52,7 +51,7 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
   
 
   const handleOptionClicked = (value:string, index: number) => {
-      setSurveyAnswers([...surveyAnswers, {answerText: value, answerIndex: index}])
+      setSurveyAnswers([...surveyAnswers, {answerText: value ?? 'N/A', answerIndex: index}])
       setCurrentAnswer(index)
       setCurrentQuestionLifetime(4)
   }
@@ -68,7 +67,7 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
         <>
           {
             surveyAnswers.map((answer, index) => (
-              <div key="answer">
+              <div key={"answer"+index}>
                 <p>{questions[index].text}</p>
                 <p>
                   {answer.answerText}
@@ -96,7 +95,6 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
           <Countdown
             value={currentAnswer !== -1 ? Date.now() + currentQuestionLifetime * 1000 : Date.now() + currentQuestion.lifetimeSeconds * 1000}
             format="ss"
-            onChange={(value) => console.log(Number(value))}
             onFinish={handleCountdownFinished}
           />
           <div className="flex flex-row gap-2">
@@ -110,7 +108,6 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
               </Button>
             ))}
           </div>
-          <p>Current answer: {currentAnswer === -1 ? "N/A" : currentAnswer + 1}</p>
         </div>
       )}
     </div>
