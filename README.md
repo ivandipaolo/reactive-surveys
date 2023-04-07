@@ -2,18 +2,32 @@
 
 <h3 align='center'>
 
-[Live Version Here](https://reactive-surveys.vercel.app/)
+  [Live Version Here](https://reactive-surveys.vercel.app/)
 
 </h3>
 
+<p align='center'>
+Reactive Surveys (Web3) is a web application that enables users to complete surveys using Web3 technology and receive QUIZ tokens as a reward. Built with React and TypeScript, the application utilizes TailwindCSS for styling and Web3React to interact with Ethereum.
+<p>
 
 ## Table of Contents!
 
-
+- [To-do List](#To-do-List)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
+## To-do List:
+- Style all the survey
+- Divide the SurveyQuestions component into separated components
+- Tooltip on user address to see the full address
+- Gifs and Screenshots
+- Redirect to main page when user click on logo
+- Redirect to main page when user disconnect in the middle of the survey
+- Add 'not answered' when user let the time of the question finish
+- Redirect to main page when finishing survey
+##### Project started on April 5th, 2023.
+#### I want to have everything completed by the night of April 8th, 2023.
 
 ## Technologies Used
 
