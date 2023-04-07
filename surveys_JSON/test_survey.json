@@ -5,7 +5,7 @@
     {
        "text":"Question1",
        "image":"https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-       "lifetimeSeconds":10,
+       "lifetimeSeconds":3,
        "options":[
           {
              "text":"Opt1"
@@ -35,7 +35,7 @@
        ]
     },
     {
-      "text":"Pregunta 2",
+      "text":"Pregunta 3",
       "image":"https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
       "lifetimeSeconds":5,
       "options":[

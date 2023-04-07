@@ -13,13 +13,14 @@ const SurveyTemplate = () => {
   
   return (
     <div className="flex flex-col items-center justify-center gap-3">
-    <Image src={image ?? ImageNotFound} alt="surveyMainImg" width={764} height={400}/>
+      <h1>{title}</h1>
+      <Image src={image ?? ImageNotFound} alt="surveyMainImg" width={764} height={400}/>
       {
         beginSurvey
         ? <SurveyQuestions questions={questions}></SurveyQuestions>
         : <div className="flex flex-row gap-2 justify-center items-center align-middle">
           <h2>Your survery will start in:</h2>
-          <Countdown value={Date.now() + 10 * 1000} format="ss" onFinish={() => setBeginSurvey(true)}/>
+          <Countdown value={Date.now() + 2 * 1000} format="ss" onFinish={() => setBeginSurvey(true)}/>
         </div>
       }
     </div>

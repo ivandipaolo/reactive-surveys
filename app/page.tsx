@@ -7,7 +7,6 @@ import { useState } from "react";
 
 export default function Page() {
   const [startedQuiz, setStartedQuiz] = useState<Boolean>(false)  
-  console.log(startedQuiz)
   return (
     <div>
       {

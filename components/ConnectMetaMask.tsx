@@ -23,7 +23,6 @@ export const ConnectMetaMask: React.FC = () => {
     }
     return null;
   }
-  console.log(account?.length)
   return (
     <div className="flex flex-col items-center justify-center text-white leading-9">
       <div className="flex flex-row text-center items-center justify-center gap-5 text-white">
