@@ -1,8 +1,12 @@
-import Image from "next/image"
 import { useState } from "react"
 import ImageNotFound from "@/public/not-found.png"
-import { Statistic, Button } from "antd"
+import { Statistic, Button, Image} from "antd"
 import { useQuizContract } from "@/hooks/useQuizContract"
+
+type SurveyAnswer = {
+  answerText: string,
+  answerIndex: number
+}
 
 type Option = {
   text: string
@@ -29,8 +33,9 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
     questions[currentQuestionIndex]
   )
   const [isSurveyFinished, setIsSurveyFinished] = useState<boolean>(false)
-  const [surveyAnswers, setSurveyAnswers] = useState<number[]>([])
+  const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswer[]>([])
   const [currentAnswer, setCurrentAnswer] = useState<number>(-1)
+  const [currentQuestionLifetime, setCurrentQuestionLifetime] = useState<number>(currentQuestion.lifetimeSeconds)
   const { Countdown } = Statistic
 
   const handleCountdownFinished = () => {
@@ -38,21 +43,22 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
       const newIndex = currentQuestionIndex + 1
       setCurrentQuestionIndex(newIndex)
       setCurrentQuestion(questions[newIndex])
+      setCurrentQuestionLifetime(currentQuestion.lifetimeSeconds)
       setCurrentAnswer(-1)
     } else {
       setIsSurveyFinished(true)
-      finishedSurvey()
     }
   }
   
 
-  const handleOptionClicked = (index: number) => {
-      setSurveyAnswers([...surveyAnswers, index])
+  const handleOptionClicked = (value:string, index: number) => {
+      setSurveyAnswers([...surveyAnswers, {answerText: value, answerIndex: index}])
       setCurrentAnswer(index)
+      setCurrentQuestionLifetime(4)
   }
 
   const finishedSurvey = () => {
-    submitSurvey(1, surveyAnswers)
+    submitSurvey(1, surveyAnswers.map((answer) => (answer.answerIndex)))
     setCooldown(15)
   }
 
@@ -60,27 +66,44 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
     <div>
       {isSurveyFinished ? (
         <>
-          <p>The survey is finished.</p>
-          <p>Thank you for participating today</p>
+          {
+            surveyAnswers.map((answer, index) => (
+              <div key="answer">
+                <p>{questions[index].text}</p>
+                <p>
+                  {answer.answerText}
+                </p>
+              </div>
+            ))
+          }
+          <Button type="default" onClick={finishedSurvey}>
+            Submit Answers
+          </Button>
         </>
       ) : (
-        <>
+        <div className="flex flex-col items-center justify-center">
           <Image
-            src={currentQuestion.image ?? ImageNotFound}
+            className="rounded-md"
+            src={currentQuestion.image}
             alt="questionImage"
-            width={250}
-            height={100}
+            width={350}
+            height={230}
           />
+          <p>{currentQuestion.text}</p>
+          {
+            currentAnswer !== -1 && <p>Displaying next question in: </p>
+          }
           <Countdown
-            value={Date.now() + currentQuestion.lifetimeSeconds * 1000}
+            value={currentAnswer !== -1 ? Date.now() + currentQuestionLifetime * 1000 : Date.now() + currentQuestion.lifetimeSeconds * 1000}
             format="ss"
+            onChange={(value) => console.log(Number(value))}
             onFinish={handleCountdownFinished}
           />
-          <div>
+          <div className="flex flex-row gap-2">
             {currentQuestion.options.map((option, index) => (
               <Button
                 key={index}
-                onClick={() => handleOptionClicked(index)}
+                onClick={() => handleOptionClicked(option.text, index)}
                 disabled={currentAnswer !== -1}
               >
                 {option.text}
@@ -88,7 +111,7 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
             ))}
           </div>
           <p>Current answer: {currentAnswer === -1 ? "N/A" : currentAnswer + 1}</p>
-        </>
+        </div>
       )}
     </div>
   )

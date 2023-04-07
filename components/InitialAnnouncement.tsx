@@ -27,14 +27,13 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
       />
     )
   }
-  console.log(cooldownPeriod)
   return (
     <>
       { cooldownPeriod === 0
         ?
           <Result
             status="success"
-            title="You are ready for beggining with todays survey! "
+            title="You are ready to begin today's survey!"
             subTitle="Click the button bellow for beggining the survey"
             extra={[
               <Button key="startSurvey" onClick={() => setStartedQuiz(true)}>Begin Survey</Button>,
@@ -43,7 +42,7 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
         :
           <Result
             status={active ? "success" : "warning"}
-            title={active ? "You are ready for beggining with todays survey! " : "Please log-in into your MetaMask account to continue."}
+            title={active ? "You are ready to begin today's survey!" : "Please log-in into your MetaMask account to continue."}
             subTitle={active ? "Click the button bellow for beggining the survey" : "Click the button bellow to log-in into your MetaMask Account"}
             extra={[
               <Button key="startSurvey" onClick={() => setStartedQuiz(true)}>Continue Waiting</Button>,

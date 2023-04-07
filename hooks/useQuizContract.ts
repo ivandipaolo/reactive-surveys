@@ -15,10 +15,8 @@ export const useQuizContract = () => {
     const getCooldownPeriod = async () => {
       if (active) {
         const contract = new ethers.Contract(contractAddress, contractABI, library)
-        console.log(account);
         try {
           const period = await contract.cooldownSeconds()
-          console.log(period);
           setCooldownPeriod(Number(period))        
         } catch (error) {
           console.log(error)
@@ -38,7 +36,7 @@ export const useQuizContract = () => {
     }
     getQuizBalance()
     getCooldownPeriod()
-  }, [active, library])
+  }, [active, library, account])
   
 
 

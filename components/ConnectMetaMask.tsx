@@ -1,7 +1,6 @@
 import { useWalletConnection } from "@/hooks/useWalletConnection";
-import { QuizBalance } from "./QuizBalance";
-import SwitchNetwork from "./SwitchNetwork";
-import ConnectButton from "./ConnectButton";
+import { QuizBalance } from "@/components/QuizBalance";
+import SwitchNetwork from "@/components/SwitchNetwork";
 import { Tooltip } from "antd";
 
 export const ConnectMetaMask: React.FC = () => {
@@ -16,7 +15,7 @@ export const ConnectMetaMask: React.FC = () => {
       return <SwitchNetwork />;
     } else if (active) {
       return (
-        <p>
+        <p className="leading-3 text-xs">
           Connected to Goerli Testnet with ChainId {chainId}
         </p>
       );
@@ -24,7 +23,7 @@ export const ConnectMetaMask: React.FC = () => {
     return null;
   }
   return (
-    <div className="flex flex-col items-center justify-center text-white leading-9">
+    <div className="flex flex-col items-end justify-center text-white leading-6">
       <div className="flex flex-row text-center items-center justify-center gap-5 text-white">
         {active && <QuizBalance />}
       </div>
@@ -36,8 +35,8 @@ export const ConnectMetaMask: React.FC = () => {
         </div>
       ) : (
         <span>Not connected</span>
-      )}
-      {renderNetworkStatus()}
+        )}
+        {renderNetworkStatus()}
     </div>
   );
 };
