@@ -11,6 +11,7 @@ import { Layout, Menu, theme } from 'antd';
 import Image from 'next/image'
 import logo from "@/public/logo.svg"
 import { ConnectMetaMask } from '@/components/ConnectMetaMask';
+import { useWalletConnection } from '@/hooks/useWalletConnection';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -51,7 +52,9 @@ const ConnectedTemplate = ({children}: TemplateProps) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  const {
+    active
+  } = useWalletConnection();
   return (
     <Layout className="min-h-screen">
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
@@ -59,18 +62,20 @@ const ConnectedTemplate = ({children}: TemplateProps) => {
           <p className="font-semibold" hidden={collapsed}>Reactive Surveys</p>
           <Image className="p-2" width="40" height="40" src={logo} alt="logo"/>
         </div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        {/* <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} /> */}
       </Sider>
       <Layout className="site-layout">
-        <Header className='h-fit p-4'>
-          <ConnectMetaMask/>
-        </Header>
+        {
+          active && 
+          <Header className='h-fit p-4'>
+            <ConnectMetaMask/>
+          </Header>
+        }
         <Content className="mx-4 my-16">
           <div className={`p-4 min-h-[360px] bg-${colorBgContainer}`}>
             {children}
           </div>
         </Content>
-        <Footer className="text-center">Ant Design ©2023 Created by Ant UED</Footer>
       </Layout>
     </Layout>
   );
