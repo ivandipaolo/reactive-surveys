@@ -2,6 +2,7 @@ import { useWalletConnection } from "@/hooks/useWalletConnection";
 import { QuizBalance } from "./QuizBalance";
 import SwitchNetwork from "./SwitchNetwork";
 import ConnectButton from "./ConnectButton";
+import { Tooltip } from "antd";
 
 export const ConnectMetaMask: React.FC = () => {
   const {
@@ -31,6 +32,7 @@ export const ConnectMetaMask: React.FC = () => {
       {active ? (
         <div className="flex flex-row items-center text-center">
           <p>Wallet: </p>
+          <Tooltip placement="leftTop" title={account}/>
           <span><b>{account?.substring(0,8)}...{account?.substring(36,42)}</b></span>
         </div>
       ) : (
