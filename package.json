@@ -11,27 +11,27 @@
   "dependencies": {
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "@types/node": "18.15.11",
-    "@types/react": "18.0.33",
-    "@types/react-dom": "18.0.11",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "antd": "^5.4.0",
+    "ethers": "^6.3.0",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
     "autoprefixer": "^10.4.14",
     "eslint": "8.37.0",
+    "postcss": "^8.4.21",
     "eslint-config-next": "13.2.4",
-    "ethers": "^6.3.0",
+    "prettier": "^2.8.7",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.33",
+    "@types/react-dom": "18.0.11",
     "mobx": "^6.9.0",
     "mobx-react-lite": "^3.4.3",
     "mobx-state-tree": "^5.1.8",
-    "next": "13.2.4",
-    "postcss": "^8.4.21",
-    "prettier": "^2.8.7",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.0.3"
-  },
-  "devDependencies": {
+    "typescript": "5.0.3",
     "tailwindcss": "^3.3.1"
   }
 }
