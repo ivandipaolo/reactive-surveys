@@ -30,8 +30,9 @@ export const ConnectMetaMask: React.FC = () => {
       {active ? (
         <div className="flex flex-row items-center text-center">
           <p>Wallet: </p>
-          <Tooltip placement="leftTop" title={account}/>
-          <span><b>{account?.substring(0,8)}...{account?.substring(36,42)}</b></span>
+          <Tooltip placement="bottom" title={account}>
+            <span><b>{account?.substring(0,8)}...{account?.substring(36,42)}</b></span>
+          </Tooltip>
         </div>
       ) : (
         <span>Not connected</span>
