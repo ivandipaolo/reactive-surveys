@@ -1,25 +1,7 @@
 import { useState } from "react"
-import ImageNotFound from "@/public/not-found.png"
 import { Statistic, Button, Image} from "antd"
 import { useQuizContract } from "@/hooks/useQuizContract"
-
-type SurveyAnswer = {
-  answerText: string,
-  answerIndex: number
-}
-
-type Option = {
-  text: string
-}
-
-type Question = {
-  text: string
-  image?: string
-  lifetimeSeconds: number
-  options: Option[]
-}
-
-type QuestionList = Question[]
+import { Question, QuestionList, SurveyAnswer } from "@/types"
 
 interface SurveyQuestionsProps {
   questions: QuestionList
