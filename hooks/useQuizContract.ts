@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react'
 import { useWalletConnection } from "@/hooks/useWalletConnection"
 
 interface QuizContract {
-  cooldownPeriod: number
+  cooldownPeriodEnded: boolean
   balance: string
   setCooldown: (seconds: number) => Promise<void>
   submitSurvey: (surveyId: number, answerIds: number[]) => Promise<void>
 }
 
 export const useQuizContract = (): QuizContract => {
-  const [cooldownPeriod, setCooldownPeriod] = useState<number>(0)
+  const [cooldownPeriodEnded, setCooldownPeriodEnded] = useState<boolean>(true)
   const [balance, setBalance] = useState<string>('')
 
   const { active, library, account } = useWalletConnection()
@@ -20,20 +20,31 @@ export const useQuizContract = (): QuizContract => {
   
   useEffect(() => {
     getQuizBalance()
-    getCooldownPeriod()
+    checkCooldownEnded()
   }, [active, library, account])
   
-  const getCooldownPeriod = async (): Promise<void> => {
+  const checkCooldownEnded = async (): Promise<void> => {
     if (active && account) {
       const contract = new Contract(contractAddress, contractABI, library)
       try {
         const lastSubmittal = await contract.lastSubmittal(account)
-        setCooldownPeriod(Number(lastSubmittal))        
+        const lastSubmittalTime = new Date(Number(lastSubmittal) * 1000)
+        const now = new Date()
+        const diff = now.getTime() - lastSubmittalTime.getTime()
+        const hours24 = 24 * 60 * 60 * 1000
+  
+        if (diff > hours24) {
+          setCooldownPeriodEnded(true)
+        } else {
+          setCooldownPeriodEnded(false)
+        }
       } catch (error) {
         console.log(error)
       }
     }
   }
+  
+
   const getQuizBalance = async (): Promise<void> => { 
     if (active) {
       const contract = new Contract(contractAddress, contractABI, library.getSigner())
@@ -67,7 +78,7 @@ export const useQuizContract = (): QuizContract => {
   }
 
   return {
-    cooldownPeriod,
+    cooldownPeriodEnded,
     balance,
     setCooldown,
     submitSurvey,

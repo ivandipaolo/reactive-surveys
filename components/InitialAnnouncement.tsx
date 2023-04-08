@@ -11,7 +11,7 @@ type InitalAnnouncementProps = {
 const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
   const { active } = useWalletConnection()
 
-  const { cooldownPeriod } = useQuizContract()
+  const { cooldownPeriodEnded } = useQuizContract()
 
   if (!active) {
     return ( 
@@ -30,7 +30,7 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
 
   return (
     <>
-      { cooldownPeriod === 0
+      { cooldownPeriodEnded
         ?
           <Result
             status="success"
