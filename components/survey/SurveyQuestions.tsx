@@ -26,7 +26,7 @@ interface SurveyQuestionsProps {
 }
 
 const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
-  const { setCooldown, submitSurvey } = useQuizContract();
+  const { submitSurvey } = useQuizContract();
   
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [currentQuestion, setCurrentQuestion] = useState<Question>(
@@ -58,7 +58,6 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
 
   const finishedSurvey = () => {
     submitSurvey(1, surveyAnswers.map((answer) => (answer.answerIndex)))
-    setCooldown(15)
   }
 
   return (
