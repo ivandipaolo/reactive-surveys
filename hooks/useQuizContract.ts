@@ -2,13 +2,7 @@ import QuizAbi from '@/abis/QUIZ.json'
 import { ethers, Contract } from 'ethers'
 import { useState, useEffect } from 'react'
 import { useWalletConnection } from "@/hooks/useWalletConnection"
-
-interface QuizContract {
-  cooldownPeriodEnded: boolean
-  balance: string
-  setCooldown: (seconds: number) => Promise<void>
-  submitSurvey: (surveyId: number, answerIds: number[]) => Promise<void>
-}
+import { QuizContract } from '@/types'
 
 export const useQuizContract = (): QuizContract => {
   const [cooldownPeriodEnded, setCooldownPeriodEnded] = useState<boolean>(true)

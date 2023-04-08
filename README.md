@@ -70,3 +70,4 @@ npm run dev
 - `public/:` Contains static assets that are publicly accessible, such as images and HTML files.
 - `styles/:` Contains global CSS files for styling the application.
 - `surveys_JSON/:` Contains JSON files related to surveys used in the project.
+- `types/:` Contains TypeScript type definitions used throughout the project.

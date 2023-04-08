@@ -1,16 +1,4 @@
-type Currency = {
-  name: string;
-  symbol: string;
-  decimals: number;
-};
-
-type Network = {
-  chainId: string;
-  chainName: string;
-  nativeCurrency: Currency;
-  rpcUrls: string[];
-  blockExplorerUrls: string[];
-};
+import { Network } from "@/types";
 
 const SwitchNetwork: React.FC = (): JSX.Element => {
 

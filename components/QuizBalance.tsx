@@ -1,12 +1,9 @@
-import { Contract } from "@ethersproject/contracts"
-import QUIZ_ABI from "@/abis/QUIZ.json"
-import { useEffect, useState } from "react"
 import { useWalletConnection } from "@/hooks/useWalletConnection"
 import { useQuizContract } from "@/hooks/useQuizContract"
 
 export const QuizBalance: React.FC = (): JSX.Element => {
   const { balance } = useQuizContract()
-  const { active, account, library, chainId } = useWalletConnection()
+  const { chainId } = useWalletConnection()
 
   return (
     <div>
