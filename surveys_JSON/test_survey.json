@@ -1,54 +1,66 @@
 {
-  "title":"Sample Survey",
- "image":"https://getthematic.com/insights/content/images/wordpress/2018/04/shutterstock_730381336.jpg",
- "questions":[
-    {
-       "text":"Question1",
-       "image":"https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-       "lifetimeSeconds":1,
-       "options":[
-          {
-             "text":"Opt1"
-          },
-          {
-             "text":"Opt2"
-          },
-          {
-             "text":"Opt"
-          }
-       ]
-    },
-    {
-       "text":"Question2",
-       "image":"https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
-       "lifetimeSeconds":2,
-       "options":[
-          {
-             "text":"Opt1"
-          },
-          {
-             "text":"Opt2"
-          },
-          {
-             "text":"Opt"
-          }
-       ]
-    },
-    {
-      "text":"Pregunta 3",
-      "image":"https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
-      "lifetimeSeconds":3,
-      "options":[
-          {
-             "text":"Opt1"
-          },
-          {
-             "text":"Opt2"
-          },
-          {
-             "text":"Opt"
-          }
-       ]
-   }
- ]
+   "title":"Music Listening Habits Survey",
+   "image":"https://getthematic.com/insights/content/images/wordpress/2018/04/shutterstock_730381336.jpg",
+   "questions":[
+      {
+         "text":"What genre of music do you prefer to listen to?",
+         "image":"https://assets.ltkcontent.com/images/10707/music-word-cloud_27c5571306.jpg",
+         "lifetimeSeconds":5,
+         "options":[
+            {
+               "text":"Rock"
+            },
+            {
+               "text":"Pop"
+            },
+            {
+               "text":"Hip hop"
+            },
+            {
+               "text":"Electronic"
+            },
+            {
+               "text":"Classical"
+            },
+            {
+               "text":"Other"
+            }
+         ]
+      },
+      {
+         "text":"How often do you listen to music during the day?",
+         "image":"https://imageio.forbes.com/specials-images/imageserve/750037840/960x0.jpg?format=jpg&width=960",
+         "lifetimeSeconds":6,
+         "options":[
+            {
+               "text":"Less than 1 hour"
+            },
+            {
+               "text":"1-2 hours"
+            },
+            {
+               "text":"2-3 hours"
+            },
+            {
+               "text":"More than 3 hours"
+            }
+         ]
+      },
+      {
+         "text":"Do you prefer listening to mu prefer listening to mu prefer listening to mu prefer listening to mu prefer listening to music alone or with others?",
+         "image":"https://w0.peakpx.com/wallpaper/925/81/HD-wallpaper-boy-listening-to-music-and-watching-nature-alone-headphones-artist-artwork-digital-art.jpg",
+         "lifetimeSeconds":3,
+         "options":[
+            {
+               "text":"Alone"
+            },
+            {
+               "text":"With others"
+            },
+            {
+               "text":"Depends on my mood"
+            }
+         ]
+      }
+   ]
 }

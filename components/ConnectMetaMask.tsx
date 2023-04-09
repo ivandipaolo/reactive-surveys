@@ -15,7 +15,7 @@ export const ConnectMetaMask: React.FC = () => {
       return  <button onClick={async () => await changeNetwork()}>Switch to Goerli Testnet</button>;
     } else if (active) {
       return (
-        <p className="leading-3 text-xs">
+        <p className="leading-3 text-xs text-end">
           Connected to Goerli Testnet with ChainId {chainId}
         </p>
       );

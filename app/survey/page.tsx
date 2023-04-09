@@ -1,85 +1,107 @@
 'use client'
 
-import Link from 'next/link'
+import { Button, Collapse, Image, Statistic } from "antd"
+import Link from "next/link"
+import { observer } from "mobx-react-lite"
 import { useState } from "react"
-import { Statistic, Button, Image} from "antd"
 import { useQuizContract } from "@/hooks/useQuizContract"
+import { questions } from "@/surveys_JSON/test_survey.json"
+import { SurveyAnswer } from "@/types"
 import SurveyQuestionsModel from "@/models/SurveyQuestionsModel"
-import { observer } from "mobx-react-lite";
-import { questions } from '@/surveys_JSON/test_survey.json'
 
+const { Countdown } = Statistic
 
 const Page = observer(() => {
-  const { submitSurvey } = useQuizContract();
-  const [ model ] = useState (() => 
-    SurveyQuestionsModel.create({
+  const { submitSurvey } = useQuizContract()
+
+  const [currentSelection, setCurrentSelection] = useState<string>('')
+  
+  const [model] = useState(() => {
+    return SurveyQuestionsModel.create({
       questions,
       currentQuestionIndex: 0,
       isSurveyFinished: false,
       surveyAnswers: [],
       currentAnswer: -1,
-      currentQuestionLifetime: questions[0].lifetimeSeconds
+      currentQuestionLifetime: questions[0].lifetimeSeconds,
     })
-  )
+  })
 
-  const { Countdown } = Statistic
+  const { Panel } = Collapse
+
+  const handleOptionClicked = (optionText: string, index: number) => {
+    model.handleOptionClicked(optionText, index)
+    setCurrentSelection(optionText)
+  }
+
+  const handleCountdownFinished = () => {
+    model.handleCountdownFinished()
+  }
 
   const finishedSurvey = () => {
-    submitSurvey(1, model.surveyAnswers.map((answer) => (answer.answerIndex)))
+    const answerIndices = model.surveyAnswers.map(
+      (answer: SurveyAnswer) => answer.answerIndex
+    )
+    submitSurvey((new Date()).getDay(), answerIndices)
   }
 
   return (
     <div>
       {model.isSurveyFinished ? (
-        <>
-          {
-            model.surveyAnswers.map((answer, index) => (
-              <div key={"answer"+index}>
-                <p>{questions[index].text}</p>
-                <p>
-                  {answer.answerText}
-                </p>
-              </div>
-            ))
-          }
-          <Link href='/'>
-            <Button type="default" onClick={finishedSurvey}>
+        <div className="flex flex-col gap-4 lg:gap-6 items-center justify-center">
+          <Collapse defaultActiveKey={['1']}>
+            {model.surveyAnswers.map((answer: SurveyAnswer, index:number) => (
+              <Panel header={questions[index].text} key={`answer${index}`}>
+                <p>{answer.answerText}</p>
+              </Panel>
+            ))}
+          </Collapse>
+          <Link href="/">
+            <Button type="default" onMouseDown={finishedSurvey}>
               Submit Answers
             </Button>
           </Link>
-        </>
+        </div>
       ) : (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-3">
+          <p className="font-semibold font-sans text-lg text-ellipsis text-center">
+            {questions[model.currentQuestionIndex].text}
+          </p>
           <Image
             className="rounded-md"
             src={questions[model.currentQuestionIndex].image}
             alt="questionImage"
-            width={350}
-            height={230}
+            width={300}
+            height={150}
           />
-          <p>{questions[model.currentQuestionIndex].text}</p>
-          {
-            model.currentAnswer !== -1 && <p>Displaying next question in: </p>
-          }
+          {model.currentAnswer !== -1 && <p className="font-semibold font-sans text-lg text-ellipsis text-center">Displaying next question in: </p>}
           <Countdown
-            value={model.currentAnswer !== -1 ? Date.now() + model.currentQuestionLifetime * 1000 : Date.now() + questions[model.currentQuestionIndex].lifetimeSeconds * 1000}
-            format="ss"
-            onFinish={() => model.handleCountdownFinished()}
+            value={
+              model.currentAnswer !== -1
+                ? Date.now() + model.currentQuestionLifetime * 1000
+                : Date.now() + questions[model.currentQuestionIndex].lifetimeSeconds * 1000
+            }
+            format="s"
+            onFinish={handleCountdownFinished}
           />
-          <div className="flex flex-row gap-2">
-            {questions[model.currentQuestionIndex].options.map((option, index) => (
-              <Button
+          {model.currentAnswer === -1 ?
+            <div className="flex flex-row flex-wrap gap-2 w-4/5 lg:w-3/5 justify-center">
+              {questions[model.currentQuestionIndex].options.map((option, index) => (
+                <Button
                 key={index}
-                onClick={() => model.handleOptionClicked(option.text, index)}
+                onClick={() => handleOptionClicked(option.text, index)}
                 disabled={model.currentAnswer !== -1}
-              >
-                {option.text}
-              </Button>
-            ))}
-          </div>
+                >
+                  {option.text}
+                </Button>
+              ))}
+            </div>
+            : <p className="font-sans text-lg text-ellipsis text-center">Current Selection: {currentSelection}</p>
+          }
         </div>
       )}
     </div>
-  )  
+  )
 })
+
 export default Page
