@@ -7,6 +7,7 @@ import { QuizContract } from '@/types'
 export const useQuizContract = (): QuizContract => {
   const [cooldownPeriodEnded, setCooldownPeriodEnded] = useState<boolean>(true)
   const [balance, setBalance] = useState<string>('')
+  const [remainingTime, setRemainingTime] = useState<number>(0)
 
   const { active, library, account } = useWalletConnection()
   const contractAddress = '0x437eF217203452317C3C955Cf282b1eE5F6aaF72'
@@ -27,12 +28,7 @@ export const useQuizContract = (): QuizContract => {
         const diff = now.getTime() - lastSubmittalTime.getTime()
         const hours24 = 24 * 60 * 60 * 1000
         const remainingTime = hours24 - diff
-        if (remainingTime > 0) {
-          const remainingHours = Math.floor(remainingTime / (60 * 60 * 1000))
-          const remainingMinutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000))
-          const remainingSeconds = Math.floor((remainingTime % (60 * 1000)) / 1000)
-          console.log(`Remaining time: ${remainingHours} hours, ${remainingMinutes} minutes, ${remainingSeconds} seconds`)
-        }
+        setRemainingTime(Date.now() + remainingTime)
         if (diff > hours24) {
           setCooldownPeriodEnded(true)
         } else {
@@ -82,5 +78,6 @@ export const useQuizContract = (): QuizContract => {
     balance,
     setCooldown,
     submitSurvey,
+    remainingTime
   }
 }

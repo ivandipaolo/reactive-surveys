@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
-import { Button, Result } from 'antd'
+import { Button, Result, Statistic } from 'antd'
 import ConnectButton from '@/components/ConnectButton'
 import { useWalletConnection } from '@/hooks/useWalletConnection'
 import { useQuizContract } from "@/hooks/useQuizContract"
@@ -11,7 +11,9 @@ type InitalAnnouncementProps = {
 const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
   const { active, chainId, changeNetwork } = useWalletConnection()
 
-  const { cooldownPeriodEnded } = useQuizContract()
+  const { cooldownPeriodEnded, remainingTime } = useQuizContract()
+
+  const { Countdown } = Statistic
 
   if (!active) {
     return ( 
@@ -53,11 +55,22 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
           />
         :
           <Result
-            status={active ? "info" : "warning"}
-            title={active ? "You have to wait until starting a new survey!" : "Please log-in into your MetaMask account to continue."}
-            subTitle={active ? "The following button will be available to click after you complete your waiting time" : "Click the button bellow to log-in into your MetaMask Account"}
+            status="info"
+            title="You have to wait until starting a new survey!"
+            subTitle="The following button will be available to click after you complete your waiting time"
             extra={[
-              <Button key="startSurvey" onClick={() => setStartedQuiz(true)} disabled>Continue Waiting</Button>,
+                <Countdown
+                  key="remainingTime"
+                  title="Remaining time:"
+                  value={remainingTime}
+                  format="HH:mm:ss"
+                />,
+                <Button 
+                  key="startSurvey"
+                  onClick={() => setStartedQuiz(true)} 
+                  disabled>
+                    Continue Waiting
+                </Button>
             ]}
           />
         }
