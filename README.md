@@ -17,8 +17,8 @@ Reactive Surveys (Web3) is a web application that enables users to complete surv
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
-## To-do List:ç
-- Add mobx-state-tree to control states
+
+## To-do List:
 - Add the cooldown remaining  for next survey on the mainpage
 - Style all the survey
 - Divide the SurveyQuestions component into separated components
@@ -36,6 +36,7 @@ Reactive Surveys (Web3) is a web application that enables users to complete surv
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Web3React](https://github.com/Uniswap/web3-react)
+- [MobX-State-Tree](https://mobx-state-tree.js.org/intro/welcome)
 
 ## Installation
 
