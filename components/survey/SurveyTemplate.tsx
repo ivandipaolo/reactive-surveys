@@ -9,11 +9,10 @@ const SurveyTemplate = () => {
   const [beginSurvey, setBeginSurvey] = useState<Boolean>(false)
   const { Countdown } = Statistic
   const {questions, title} = data
-  const image = 'https://getthematic.com/insights/content/images/wordpress/2018/04/shutterstock_730381336.jpg'
   
   return (
     <div className="flex flex-row items-start justify-start gap-3">
-      <Image src={image ?? ImageNotFound} className="rounded-md" alt="surveyMainImg" width={1000} height={536}/>
+      <Image src={data.image ?? ImageNotFound} className="rounded-md" alt="surveyMainImg" width={1000} height={536}/>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold">{title}</h1>
         {
