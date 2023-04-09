@@ -21,7 +21,7 @@ const RootApp = () => {
       title="You are ready to begin today's survey!"
       subTitle="Click the button bellow for beggining the survey"
       extra={[
-        <Link href="/survey">
+        <Link href="/survey" key="surveyRef">
           <Button key="startSurvey">Begin Survey</Button>
         </Link>
       ]}
