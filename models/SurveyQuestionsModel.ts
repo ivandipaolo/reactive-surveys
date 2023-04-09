@@ -25,10 +25,9 @@ const SurveyQuestionsModel = types
       if (self.surveyAnswers.length < self.currentQuestionIndex + 1){
         self.surveyAnswers.push({
           answerText: "No answer given.",
-          answerIndex: -1,
+          answerIndex: 0,
         })
       }
-      console.log(self.currentQuestionIndex);
       if (self.currentQuestionIndex < self.questions.length - 1) {
         self.currentQuestionIndex = self.currentQuestionIndex + 1
         self.currentAnswer = -1
