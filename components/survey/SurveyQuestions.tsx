@@ -1,53 +1,39 @@
 import { useState } from "react"
 import { Statistic, Button, Image} from "antd"
 import { useQuizContract } from "@/hooks/useQuizContract"
-import { Question, QuestionList, SurveyAnswer } from "@/types"
+import { QuestionList } from "@/types"
+import SurveyQuestionsModel from "@/models/SurveyQuestionsModel"
+import { observer } from "mobx-react-lite";
 
 interface SurveyQuestionsProps {
   questions: QuestionList
 }
 
-const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
+const SurveyQuestions = observer(({ questions }: SurveyQuestionsProps) => {
   const { submitSurvey } = useQuizContract();
-  
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
-  const [currentQuestion, setCurrentQuestion] = useState<Question>(
-    questions[currentQuestionIndex]
+  const [ model ] = useState (() => 
+    SurveyQuestionsModel.create({
+      questions,
+      currentQuestionIndex: 0,
+      isSurveyFinished: false,
+      surveyAnswers: [],
+      currentAnswer: -1,
+      currentQuestionLifetime: questions[0].lifetimeSeconds
+    })
   )
-  const [isSurveyFinished, setIsSurveyFinished] = useState<boolean>(false)
-  const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswer[]>([])
-  const [currentAnswer, setCurrentAnswer] = useState<number>(-1)
-  const [currentQuestionLifetime, setCurrentQuestionLifetime] = useState<number>(currentQuestion.lifetimeSeconds)
+
   const { Countdown } = Statistic
 
-  const handleCountdownFinished = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      const newIndex = currentQuestionIndex + 1
-      setCurrentQuestionIndex(newIndex)
-      setCurrentQuestion(questions[newIndex])
-      setCurrentAnswer(-1)
-    } else {
-      setIsSurveyFinished(true)
-    }
-  }
-  
-
-  const handleOptionClicked = (value:string, index: number) => {
-      setSurveyAnswers([...surveyAnswers, {answerText: value ?? 'N/A', answerIndex: index}])
-      setCurrentAnswer(index)
-      setCurrentQuestionLifetime(4)
-  }
-
   const finishedSurvey = () => {
-    submitSurvey(1, surveyAnswers.map((answer) => (answer.answerIndex)))
+    submitSurvey(1, model.surveyAnswers.map((answer) => (answer.answerIndex)))
   }
 
   return (
     <div>
-      {isSurveyFinished ? (
+      {model.isSurveyFinished ? (
         <>
           {
-            surveyAnswers.map((answer, index) => (
+            model.surveyAnswers.map((answer, index) => (
               <div key={"answer"+index}>
                 <p>{questions[index].text}</p>
                 <p>
@@ -64,26 +50,26 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
         <div className="flex flex-col items-center justify-center">
           <Image
             className="rounded-md"
-            src={currentQuestion.image}
+            src={questions[model.currentQuestionIndex].image}
             alt="questionImage"
             width={350}
             height={230}
           />
-          <p>{currentQuestion.text}</p>
+          <p>{questions[model.currentQuestionIndex].text}</p>
           {
-            currentAnswer !== -1 && <p>Displaying next question in: </p>
+            model.currentAnswer !== -1 && <p>Displaying next question in: </p>
           }
           <Countdown
-            value={currentAnswer !== -1 ? Date.now() + currentQuestionLifetime * 1000 : Date.now() + currentQuestion.lifetimeSeconds * 1000}
+            value={model.currentAnswer !== -1 ? Date.now() + model.currentQuestionLifetime * 1000 : Date.now() + questions[model.currentQuestionIndex].lifetimeSeconds * 1000}
             format="ss"
-            onFinish={handleCountdownFinished}
+            onFinish={() => model.handleCountdownFinished()}
           />
           <div className="flex flex-row gap-2">
-            {currentQuestion.options.map((option, index) => (
+            {questions[model.currentQuestionIndex].options.map((option, index) => (
               <Button
                 key={index}
-                onClick={() => handleOptionClicked(option.text, index)}
-                disabled={currentAnswer !== -1}
+                onClick={() => model.handleOptionClicked(option.text, index)}
+                disabled={model.currentAnswer !== -1}
               >
                 {option.text}
               </Button>
@@ -92,7 +78,6 @@ const SurveyQuestions = ({ questions }: SurveyQuestionsProps) => {
         </div>
       )}
     </div>
-  )
-}
-
+  )  
+})
 export default SurveyQuestions

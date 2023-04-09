@@ -1,11 +1,11 @@
 {
   "title":"Sample Survey",
- "image":"https://48tools.com/wp-content/uploads/2015/09/shortlink.png",
+ "image":"https://getthematic.com/insights/content/images/wordpress/2018/04/shutterstock_730381336.jpg",
  "questions":[
     {
        "text":"Question1",
        "image":"https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-       "lifetimeSeconds":3,
+       "lifetimeSeconds":1,
        "options":[
           {
              "text":"Opt1"
@@ -21,7 +21,7 @@
     {
        "text":"Question2",
        "image":"https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
-       "lifetimeSeconds":5,
+       "lifetimeSeconds":2,
        "options":[
           {
              "text":"Opt1"
@@ -37,7 +37,7 @@
     {
       "text":"Pregunta 3",
       "image":"https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
-      "lifetimeSeconds":5,
+      "lifetimeSeconds":3,
       "options":[
           {
              "text":"Opt1"

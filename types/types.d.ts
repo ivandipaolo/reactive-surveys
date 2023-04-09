@@ -8,7 +8,7 @@ export type SurveyAnswer = {
 
 export type Question = {
   text: string
-  image?: string
+  image: string
   lifetimeSeconds: number
   options: Option[]
 }
