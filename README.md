@@ -20,11 +20,8 @@ Reactive Surveys (Web3) is a web application that enables users to complete surv
 
 ## To-do List:
 - Style all the survey
-- Divide the SurveyQuestions component into separated components
+- Divide the app/survey/page into separated components
 - Gifs and Screenshots
-- Redirect to main page when finishing survey
-- Redirect to main page when user click on logo
-- Redirect to main page when user disconnect in the middle of the survey
 - Add 'not answered' when user let the time of the question finish
 ##### Project started on April 5th, 2023.
 #### I want to have everything completed by the night of April 9th, 2023.
