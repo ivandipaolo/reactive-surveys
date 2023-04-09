@@ -1,15 +1,15 @@
+'use client'
+
+import Link from 'next/link'
 import { useState } from "react"
 import { Statistic, Button, Image} from "antd"
 import { useQuizContract } from "@/hooks/useQuizContract"
-import { QuestionList } from "@/types"
 import SurveyQuestionsModel from "@/models/SurveyQuestionsModel"
 import { observer } from "mobx-react-lite";
+import { questions } from '@/surveys_JSON/test_survey.json'
 
-interface SurveyQuestionsProps {
-  questions: QuestionList
-}
 
-const SurveyQuestions = observer(({ questions }: SurveyQuestionsProps) => {
+const Page = observer(() => {
   const { submitSurvey } = useQuizContract();
   const [ model ] = useState (() => 
     SurveyQuestionsModel.create({
@@ -42,9 +42,11 @@ const SurveyQuestions = observer(({ questions }: SurveyQuestionsProps) => {
               </div>
             ))
           }
-          <Button type="default" onClick={finishedSurvey}>
-            Submit Answers
-          </Button>
+          <Link href='/'>
+            <Button type="default" onClick={finishedSurvey}>
+              Submit Answers
+            </Button>
+          </Link>
         </>
       ) : (
         <div className="flex flex-col items-center justify-center">
@@ -80,4 +82,4 @@ const SurveyQuestions = observer(({ questions }: SurveyQuestionsProps) => {
     </div>
   )  
 })
-export default SurveyQuestions
+export default Page

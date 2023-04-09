@@ -4,6 +4,7 @@ import Image from 'next/image'
 import logo from "@/public/logo.svg"
 import { ConnectMetaMask } from '@/components/ConnectMetaMask';
 import { useWalletConnection } from '@/hooks/useWalletConnection';
+import Link from 'next/link'
 
 const { Header, Content } = Layout;
 
@@ -20,16 +21,15 @@ const ConnectedTemplate = ({children}: TemplateProps) => {
   } = useWalletConnection();
   return (
     <Layout className="site-layout">
-      {
-        active && 
-        <Header className='flex flex-row h-fit p-4 justify-between bg-teal-500'>
+      <Header className='flex flex-row h-fit p-4 justify-between bg-teal-500'>
+        <Link href="/">
           <div className="flex flex-row text-2xl text-white items-center justify-center ">
             <p className="font-semibold">Reactive Surveys</p>
             <Image className="p-2" width="45" height="45" src={logo} alt="logo"/>
           </div>
-          <ConnectMetaMask/>
-        </Header>
-      }
+        </Link>
+        <ConnectMetaMask/>
+      </Header>
       <Content className="m-4">
         <div className={`px-4 min-h-[360px] bg-${colorBgContainer}`}>
           {children}
