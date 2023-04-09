@@ -19,9 +19,16 @@ const SurveyQuestionsModel = types
         answerIndex: index,
       })
       self.currentAnswer = index
-      self.currentQuestionLifetime = 4
+      self.currentQuestionLifetime = 6
     },
     handleCountdownFinished() {
+      if (self.surveyAnswers.length < self.currentQuestionIndex + 1){
+        self.surveyAnswers.push({
+          answerText: "No answer given.",
+          answerIndex: -1,
+        })
+      }
+      console.log(self.currentQuestionIndex);
       if (self.currentQuestionIndex < self.questions.length - 1) {
         self.currentQuestionIndex = self.currentQuestionIndex + 1
         self.currentAnswer = -1
