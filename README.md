@@ -19,7 +19,6 @@ Reactive Surveys (Web3) is a web application that enables users to complete surv
 - [Folder Structure](#folder-structure)
 
 ## To-do List:
-- Add the cooldown remaining  for next survey on the mainpage
 - Style all the survey
 - Divide the SurveyQuestions component into separated components
 - Gifs and Screenshots

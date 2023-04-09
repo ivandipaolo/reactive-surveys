@@ -36,4 +36,5 @@ export interface QuizContract {
   balance: string
   setCooldown: (seconds: number) => Promise<void>
   submitSurvey: (surveyId: number, answerIds: number[]) => Promise<void>
+  remainingTime: number
 }
