@@ -26,7 +26,13 @@ export const useQuizContract = (): QuizContract => {
         const now = new Date()
         const diff = now.getTime() - lastSubmittalTime.getTime()
         const hours24 = 24 * 60 * 60 * 1000
-  
+        const remainingTime = hours24 - diff
+        if (remainingTime > 0) {
+          const remainingHours = Math.floor(remainingTime / (60 * 60 * 1000))
+          const remainingMinutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000))
+          const remainingSeconds = Math.floor((remainingTime % (60 * 1000)) / 1000)
+          console.log(`Remaining time: ${remainingHours} hours, ${remainingMinutes} minutes, ${remainingSeconds} seconds`)
+        }
         if (diff > hours24) {
           setCooldownPeriodEnded(true)
         } else {

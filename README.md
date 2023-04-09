@@ -17,17 +17,18 @@ Reactive Surveys (Web3) is a web application that enables users to complete surv
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
-## To-do List:
+## To-do List:ç
+- Add mobx-state-tree to control states
+- Add the cooldown remaining  for next survey on the mainpage
 - Style all the survey
 - Divide the SurveyQuestions component into separated components
-- Tooltip on user address to see the full address
 - Gifs and Screenshots
+- Redirect to main page when finishing survey
 - Redirect to main page when user click on logo
 - Redirect to main page when user disconnect in the middle of the survey
 - Add 'not answered' when user let the time of the question finish
-- Redirect to main page when finishing survey
 ##### Project started on April 5th, 2023.
-#### I want to have everything completed by the night of April 8th, 2023.
+#### I want to have everything completed by the night of April 9th, 2023.
 
 ## Technologies Used
 

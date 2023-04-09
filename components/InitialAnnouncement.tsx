@@ -9,7 +9,7 @@ type InitalAnnouncementProps = {
 }
 
 const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
-  const { active } = useWalletConnection()
+  const { active, chainId, changeNetwork } = useWalletConnection()
 
   const { cooldownPeriodEnded } = useQuizContract()
 
@@ -26,6 +26,17 @@ const InitialAnnouncement = ({setStartedQuiz}: InitalAnnouncementProps) => {
       ]}
       />
     )
+  }
+
+  if (chainId !== 5) {
+    return <Result
+    status="error"
+    title="Your current network is not Goerli Testnet Network"
+    subTitle="Click the button bellow to change to Goerli Network"
+    extra={[
+      <Button key="changeNetwork" onClick={async () => await changeNetwork()}>Change Network</Button>,
+    ]}
+  />;
   }
 
   return (
