@@ -61,6 +61,11 @@ const Page = observer(() => {
               Submit Answers
             </Button>
           </Link>
+          <Link href="/survey">
+            <Button>
+              Restart Survey
+            </Button>
+          </Link>
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center gap-3">
